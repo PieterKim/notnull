@@ -72,7 +72,7 @@ export default{
                     this.productInfo = JSON.parse(this.$route.query.productInfoQuery);
                 }else if(query === 'orderingInfoQuary') {
                     const InfoFromProductView = this.$route.query.orderingInfoQuary;
-                    const response = await axios.get(`http://localhost:3000/orders/order/${InfoFromProductView}`);
+                    const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/orders/order/${InfoFromProductView}`);
                     this.productInfo = [response.data];
                 }
             }catch(err){

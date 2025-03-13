@@ -129,7 +129,7 @@ export default {
   methods:{
     async checkLogin(){
       try {
-        const response = await axios.get('http://localhost:3000/auth/check',{withCredentials:true});
+        const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/auth/check',{withCredentials:true});
         this.isLogin = response.data.isLoggedIn;
       } catch(error) {
         return false;
@@ -138,7 +138,7 @@ export default {
     async boardList(){
       const postKind= this.$route.params.post_kind;
       try {
-        const response = await axios.get(`http://localhost:3000/post/post_list/${postKind}`);
+        const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/post/post_list/${postKind}`);
         this.posts = response.data;
         this.originalPosts = response.data;
       } catch (error){

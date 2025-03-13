@@ -136,7 +136,7 @@ export default {
       console.log('axios 준비즁')
       console.log(productKind)
       try {
-        const response = await axios.get(`http://localhost:3000/etc/${productKind}`);
+        const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/etc/${productKind}`);
         console.log('여기는 안오겠지 ?')
         this.products = response.data.map(product => {
       return {
@@ -216,7 +216,7 @@ export default {
 
      async getUserProfile(){
         try{
-            const response = await axios.get(`http://localhost:3000/profile/`, {withCredentials:true}); 
+            const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/profile/`, {withCredentials:true}); 
             //알아서 req.user.email 조회해서 유저 data 쏴주는 controller_profile
             //쿠키세션 쓸때는 무조건 {withCredentials:true} 써줘야됨
             this.user = response.data
@@ -244,7 +244,7 @@ export default {
                     product_Id : product.id,
                 };
                 
-                const response = await axios.post(`http://localhost:3000/orders/wish`, userWish);
+                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/orders/wish`, userWish);
                 if(response.status == 201) {
                     console.log(response.data.message);
                     alert("찜 리스트에 추가되었습니다.");
@@ -276,7 +276,7 @@ export default {
                 //console.log(`################userorder${JSON.stringify(cartingInfo)}`);
 
                 // data를 req.body로 백에 보내고, res받아 완료 메세지 띄우기
-                const response = await axios.post(`http://localhost:3000/orders/cart`, cartingInfo);
+                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/orders/cart`, cartingInfo);
 
                 // "장바구니 갈래? y/n"
                 if(response) {

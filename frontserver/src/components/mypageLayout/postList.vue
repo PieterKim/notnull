@@ -21,7 +21,7 @@ export default{
 
         async getOderList(){
             try{
-                const res = await axios.get(`http://localhost:3000/profile/posts`,{withCredentials:true})
+                const res = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/profile/posts`,{withCredentials:true})
                 this.posts = res.data
             }catch(err){
                 console.log(err)

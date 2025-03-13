@@ -65,7 +65,7 @@ export default{
         async getCancelledList() {
             try{
                 this.userid = this.$route.params.userId;
-                const response = await axios.get(`http://localhost:3000/orders/cancelledOrder/${this.userid}`);
+                const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/orders/cancelledOrder/${this.userid}`);
                 this.cancelledList = response.data //.sort((a, b) => b.id - a.id); // 주문번호순으로 정렬
                 this.cancelledList = this.cancelledList.filter(cancel => cancel.OrderStatus.id > 5);
             }catch(err){

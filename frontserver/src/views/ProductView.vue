@@ -256,7 +256,7 @@ export default{
         // GET user profile
         async getUserProfile(){
         try{
-            const response = await axios.get(`http://localhost:3000/profile/`, {withCredentials:true}); 
+            const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/profile/`, {withCredentials:true}); 
             //알아서 req.user.email 조회해서 유저 data 쏴주는 controller_profile
             //쿠키세션 쓸때는 무조건 {withCredentials:true} 써줘야됨
             this.user = response.data
@@ -274,7 +274,7 @@ export default{
                 //도메인 요청, 돌아오는 response 잡기
                 this.product_id = this.$route.params.product_id;
                 //console.log(this.product_id)
-                const response = await axios.get(`http://localhost:3000/products/${this.product_id}`);
+                const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/products/${this.product_id}`);
                 // product_id에 해당하는 제품 data object를 받아온다.
                 //console.log(response)
                 this.selectedProduct = response.data ; 
@@ -286,7 +286,7 @@ export default{
 
         async getRecommendProducts() {
             try {
-                const response = await axios.get(`http://localhost:3000/products/${this.product_id}/recommend/`);
+                const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/products/${this.product_id}/recommend/`);
                 this.recommendProduct = response.data ; 
             }catch(err) {
                 console.error(err);
@@ -296,7 +296,7 @@ export default{
         async reRendRecommend(productId){
             try{
                 this.$router.push(`/products/${productId}`)
-                const response = await axios.get(`http://localhost:3000/products/${productId}`);
+                const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/products/${productId}`);
                 this.selectedProduct = response.data;
             }catch(err){
                 console.error(err)
@@ -319,7 +319,7 @@ export default{
                     product_Id : this.selectedProduct.id,
                 };
                 
-                const response = await axios.post(`http://localhost:3000/orders/wish`, userWish);
+                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/orders/wish`, userWish);
                 if(response.status == 201) {
                     alert("찜 리스트에 추가되었습니다.");
                 }
@@ -352,7 +352,7 @@ export default{
                 //console.log(`################userorder${JSON.stringify(cartingInfo)}`);
 
                 // data를 req.body로 백에 보내고, res받아 완료 메세지 띄우기
-                const response = await axios.post(`http://localhost:3000/orders/cart`, cartingInfo);
+                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/orders/cart`, cartingInfo);
 
                 // "장바구니 갈래? y/n"
                 if(response) {
@@ -435,7 +435,7 @@ export default{
             try{
                 console.log('checkRecentlyProduct');
                 const productId = this.$route.params.product_id;
-                await axios.patch(`http://localhost:3000/products/recently/${productId}`,{},{withCredentials:true});
+                await axios.patch(`import.meta.env.VUE_APP_API_BASE_URL/products/recently/${productId}`,{},{withCredentials:true});
                 console.log('checkRecentlyProduct 완료');
             }catch(err){
                 console.error(err);

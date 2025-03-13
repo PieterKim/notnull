@@ -70,7 +70,7 @@ export default {
     if(this.$route.params.id){
         this.isModify = true;
         const postID = this.$route.params.id;
-        axios.get(`http://localhost:3000/post/post_detail/${postID}`,{withCredentials:true})
+        axios.get(`import.meta.env.VUE_APP_API_BASE_URL/post/post_detail/${postID}`,{withCredentials:true})
         .then(response => {
             this.post = response.data;
         })
@@ -95,7 +95,7 @@ export default {
       try{
         const formData = new FormData();
         formData.append('image',this.postImage);
-        const response = await axios.post('http://localhost:3000/post/upload/postImg',formData,{
+        const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/post/upload/postImg',formData,{
           headers:{
             'Content-Type':'multipart/form-data',
           },
@@ -126,14 +126,14 @@ export default {
             });
             return;
           }
-          const response = await axios.patch(`http://localhost:3000/post/modifyPost/${this.post.id}`,this.post,{withCredentials:true});
+          const response = await axios.patch(`import.meta.env.VUE_APP_API_BASE_URL/post/modifyPost/${this.post.id}`,this.post,{withCredentials:true});
           console.log("게시글 수정 응답",response);
           this.post = {};
           this.isModify = false;
           this.$router.push(`/post/post_detail/${response.data.id}`);
         }
         else{
-          const response = await axios.post('http://localhost:3000/post/addPost',this.post,{withCredentials:true});
+          const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/post/addPost',this.post,{withCredentials:true});
           console.log("게시글 제출 응답",response);
           this.post = {};
           this.$router.push(`/post/post_detail/${response.data.id}`);

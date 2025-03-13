@@ -210,7 +210,7 @@ export default{
     methods:{
         async getOrders(){
             try{
-                const response = await axios.get('http://localhost:3000/admin/orders',{withCredentials:true});
+                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/orders',{withCredentials:true});
                 this.orders = response.data;
             }catch(error){
                 if(error.response.status === 402){
@@ -234,7 +234,7 @@ export default{
         },
         async submitCancelOrder(){
             try{
-                await axios.patch('http://localhost:3000/orders/cancel',this.cancelOrderData,{withCredentials:true});
+                await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/orders/cancel',this.cancelOrderData,{withCredentials:true});
                 this.getOrders();
             }catch(error){
                 console.log(error);
@@ -242,7 +242,7 @@ export default{
         },
         async submitEditOrder(){
             try{
-                await axios.patch('http://localhost:3000/orders/modify',this.editOrderData,{withCredentials:true});
+                await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/orders/modify',this.editOrderData,{withCredentials:true});
                 this.getOrders();
             }catch(error){
                 console.log(error);

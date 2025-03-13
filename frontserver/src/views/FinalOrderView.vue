@@ -289,7 +289,7 @@ export default{
                     //console.log(`############################${JSON.stringify(this.productInfo)}`)
                 }else if(query === 'orderingInfoQuary') {
                     const InfoFromProductView = this.$route.query.orderingInfoQuary;
-                    const response = await axios.get(`http://localhost:3000/orders/ordering/${InfoFromProductView}`);
+                    const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/orders/ordering/${InfoFromProductView}`);
                     this.productInfo = [response.data];
                     console.log(`############################ProductView${JSON.stringify(this.productInfo)}`)
                     //{"id":23,"count":1,
@@ -317,7 +317,7 @@ export default{
               orderMessage : this.orderMessage,
               cart_id : product.cart_id,
             }));
-            const response = await axios.post(`http://localhost:3000/orders/order`, {
+            const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/orders/order`, {
               orderInfos,
               hasCouponId : this.selectedCoupon,
               usePoint : this.usePoint,
@@ -387,7 +387,7 @@ export default{
         //유저도 가져와야 해
         async getUser(){
             try{
-              const response = await axios.get('http://localhost:3000/profile',{withCredentials:true});
+              const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/profile',{withCredentials:true});
               this.user = response.data;
             }catch(err){
               console.error(err);
@@ -396,7 +396,7 @@ export default{
         //쿠폰 가져와야 해
         async getCoupons(){
             try{
-                const response = await axios.get('http://localhost:3000/profile/coupons',{withCredentials:true});
+                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/profile/coupons',{withCredentials:true});
                 this.userCoupons = response.data;
             }catch(err){
                 console.error(err);
@@ -478,7 +478,7 @@ export default{
                 {
                 pg: 'inicis_unified', // KG 이니시스 (실제 PG사에 맞게 설정)
                 merchant_uid: `verify_${new Date().getTime()}`, // 주문번호
-                m_redirect_url: 'http://localhost:3000/hdj_verify/verify', // 리디렉션 URL (모바일용)
+                m_redirect_url: 'import.meta.env.VUE_APP_API_BASE_URL/hdj_verify/verify', // 리디렉션 URL (모바일용)
                 popup: true, // PC에서는 항상 true
                 },
                 (rsp) => {
@@ -499,7 +499,7 @@ export default{
         },
         async sendVerificationData(rsp) {
             try {
-                const response = await axios.post('http://localhost:3000/hdj_verify/verify', {
+                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/hdj_verify/verify', {
                     imp_uid: rsp.imp_uid, // 인증 고유 ID
                     merchant_uid: rsp.merchant_uid, // 주문 번호
                 });

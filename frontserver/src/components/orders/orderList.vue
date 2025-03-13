@@ -71,7 +71,7 @@ export default{
         async getOrderList() {
             try{
                 this.userid = this.$route.params.userId;
-                const response = await axios.get(`http://localhost:3000/orders/order/${this.userid}`);
+                const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/orders/order/${this.userid}`);
                 this.orderList = response.data.sort((a, b) => b.id - a.id); // 주문번호순으로 정렬렬
             }catch(err){
                 console.error(err);
@@ -81,7 +81,7 @@ export default{
         // Order UPDATE
         async cancelOrder(cancelingOrder){
             try{
-                const response = await axios.patch(`http://localhost:3000/orders/cancelledOrder/${this.userid}`, {cancelingOrderId : cancelingOrder.id});
+                const response = await axios.patch(`import.meta.env.VUE_APP_API_BASE_URL/orders/cancelledOrder/${this.userid}`, {cancelingOrderId : cancelingOrder.id});
                 if(response.status === 200) {
                     alert("주문이 취소되었습니다.")
                     this.orderList = this.orderList.filter(order =>  order.id != cancelingOrder.id);

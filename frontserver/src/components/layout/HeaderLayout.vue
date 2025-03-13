@@ -77,7 +77,7 @@ export default{
     // 로그아웃 처리 함수 여기부터 logout까지 2025-01-07
       async checkLogin() {
           try {
-              const response = await axios.get('http://localhost:3000/auth/check',{withCredentials:true});
+              const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/auth/check',{withCredentials:true});
               this.isLoggedIn = response.data.isLoggedIn;
               this.checkAdmin = response.data.isAdmin;
           } catch (error) {
@@ -86,7 +86,7 @@ export default{
       },
       async login() {
           try {
-            const response = await axios.post('http://localhost:3000/auth/login', {
+            const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/auth/login', {
               username: this.username,
               password: this.password,
             }, { withCredentials: true });
@@ -105,7 +105,7 @@ export default{
         },
       async logout() {
           try {
-            await axios.post('http://localhost:3000/auth/logout', {}, { withCredentials: true });
+            await axios.post('import.meta.env.VUE_APP_API_BASE_URL/auth/logout', {}, { withCredentials: true });
             this.isLoggedIn = false; // 로그아웃 후 즉시 상태 갱신
             alert("로그아웃 되었습니다!");
             this.checkAdmin = false;

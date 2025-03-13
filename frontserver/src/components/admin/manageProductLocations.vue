@@ -166,7 +166,7 @@ export default{
         },
         async getProductLocations(){
             try{
-                const response = await axios.get('http://localhost:3000/admin/products/locations',{withCredentials:true});
+                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/products/locations',{withCredentials:true});
                 this.locations = response.data;
             }
             catch(error){
@@ -188,7 +188,7 @@ export default{
         },
         async submitModifyLocation(){
             try{
-                const response = await axios.patch('http://localhost:3000/admin/modifyProductLocation',this.editingLocation,{withCredentials:true});
+                const response = await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/admin/modifyProductLocation',this.editingLocation,{withCredentials:true});
                 this.getProductLocations();
             }
             catch(error){
@@ -207,7 +207,7 @@ export default{
         },
         async deleteLocation(location){
             try{
-                const response = await axios.delete(`http://localhost:3000/admin/deleteProductLocation/${location.id}`,{withCredentials:true});
+                const response = await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/admin/deleteProductLocation/${location.id}`,{withCredentials:true});
                 this.locations = this.locations.filter(loc => loc.id !== location.id);
             }
             catch(error){
@@ -226,7 +226,7 @@ export default{
         },
         async submitAddLocation(){
             try{
-                const response = await axios.post('http://localhost:3000/admin/addProductLocation',this.newLocation,{withCredentials:true});
+                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/addProductLocation',this.newLocation,{withCredentials:true});
                 this.locations.push(response.data);
                 this.newLocation = {};
                 this.getProductLocations();

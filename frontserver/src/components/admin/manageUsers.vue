@@ -217,7 +217,7 @@ export default{
         },
         async getUsers(){
             try{
-                const response = await axios.get('http://localhost:3000/admin/users',{withCredentials:true});
+                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/users',{withCredentials:true});
                 this.users = response.data.users;
                 this.ratings = response.data.ratings;
                 console.log(this.users);
@@ -243,7 +243,7 @@ export default{
         async submitModifyUser(){
             try{
                 const userIndex = this.users.findIndex(user => user.id === this.editingUser.id);
-                const response = await axios.patch(`http://localhost:3000/admin/users`,this.editingUser,{withCredentials:true});
+                const response = await axios.patch(`import.meta.env.VUE_APP_API_BASE_URL/admin/users`,this.editingUser,{withCredentials:true});
                 if (response.status === 200) {
                     this.users[userIndex] = { ...this.editingUser };
                 }
@@ -265,7 +265,7 @@ export default{
         },
         async deleteUser(user){
             try{
-                const response = await axios.delete(`http://localhost:3000/admin/users/${user.id}`,{withCredentials:true});
+                const response = await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/admin/users/${user.id}`,{withCredentials:true});
                 if (response.status === 200) {
                     this.users = this.users.filter(u => u.id !== user.id);
                 }

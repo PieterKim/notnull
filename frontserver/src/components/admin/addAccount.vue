@@ -155,7 +155,7 @@ export default{
         async submitAddAccount(){
             try{
                 console.log(this.dataForAddAccount);
-                const response = await axios.post('http://localhost:3000/admin/addAccount',this.dataForAddAccount,{withCredentials:true});
+                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/addAccount',this.dataForAddAccount,{withCredentials:true});
                 this.dataForAddAccount = {
                     name:'',
                     nickname:'',

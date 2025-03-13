@@ -166,7 +166,7 @@ export default{
         },
         async getUserRatings(){
             try{
-                const response = await axios.get('http://localhost:3000/profile/ratings',{withCredentials:true});
+                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/profile/ratings',{withCredentials:true});
                 this.ratings = response.data;
             }
             catch(error){
@@ -188,7 +188,7 @@ export default{
         },
         async submitModifyRating(){
             try{
-                const response = await axios.patch('http://localhost:3000/admin/modifyUserRating',this.editingRating,{withCredentials:true});
+                const response = await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/admin/modifyUserRating',this.editingRating,{withCredentials:true});
                 this.getUserRatings();
             }
             catch(error){
@@ -207,7 +207,7 @@ export default{
         },
         async deleteRating(rating){
             try{
-                const response = await axios.delete(`http://localhost:3000/admin/deleteUserRating/${rating.id}`,{withCredentials:true});
+                const response = await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/admin/deleteUserRating/${rating.id}`,{withCredentials:true});
                 this.ratings = this.ratings.filter(rat => rat.id !== rating.id);
             }
             catch(error){
@@ -226,7 +226,7 @@ export default{
         },
         async submitAddRating(){
             try{
-                const response = await axios.post('http://localhost:3000/admin/addUserRating',this.newRating,{withCredentials:true});
+                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/addUserRating',this.newRating,{withCredentials:true});
                 this.ratings.push(response.data);
                 this.newRating = {};
                 this.getUserRatings();

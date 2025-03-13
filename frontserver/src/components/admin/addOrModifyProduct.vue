@@ -120,7 +120,7 @@ export default{
         if(this.$route.params.id){
             this.isModify = true;
             const productID = this.$route.params.id;
-            axios.get(`http://localhost:3000/admin/products/${productID}`,{withCredentials:true})
+            axios.get(`import.meta.env.VUE_APP_API_BASE_URL/admin/products/${productID}`,{withCredentials:true})
             .then(response => {
                 console.log(response);
                 this.product = response.data;
@@ -138,7 +138,7 @@ export default{
     methods:{
         async getProductLocations(){
             try{
-                const response = await axios.get('http://localhost:3000/admin/products/locations',{withCredentials:true});
+                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/products/locations',{withCredentials:true});
                 this.productLocations = response.data;
                 console.log("productLocations",response);
             }
@@ -158,7 +158,7 @@ export default{
         },
         async getSupplyFactories(){
             try{
-                const response = await axios.get('http://localhost:3000/admin/products/supplyFactories',{withCredentials:true});
+                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/products/supplyFactories',{withCredentials:true});
                 this.supplyFactories = response.data;
                 console.log("supplyFactories",response);
             }
@@ -194,7 +194,7 @@ export default{
             try {
                 const formData = new FormData();
                 formData.append('image', this.descriptionImageFile);
-                const response = await axios.post('http://localhost:3000/admin/upload/descriptionImg', formData, {
+                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/upload/descriptionImg', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },
@@ -225,7 +225,7 @@ export default{
             try {
                 const formData = new FormData();
                 formData.append('image', this.productImageFile);
-                const response = await axios.post('http://localhost:3000/admin/upload/productImg', formData, {
+                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/upload/productImg', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },
@@ -252,7 +252,7 @@ export default{
         //상품 추가
         async AddProduct(){
             try{
-                const response = await axios.post('http://localhost:3000/admin/addProduct', this.product,{withCredentials:true});
+                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/addProduct', this.product,{withCredentials:true});
                 if(response.status === 200){
                     alert('상품 추가가 완료되었습니다.');
                     this.$router.push('/admin/manageProducts');
@@ -278,7 +278,7 @@ export default{
         //상품 수정
         async ModifyProduct(){
             try{
-                const response = await axios.patch('http://localhost:3000/admin/modifyProduct', this.product,{withCredentials:true});
+                const response = await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/admin/modifyProduct', this.product,{withCredentials:true});
                 if(response.status === 200){
                     alert('상품 수정이 완료되었습니다.');
                     this.$router.push('/admin/manageProducts');

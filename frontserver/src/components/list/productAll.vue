@@ -69,7 +69,7 @@ export default {
     // 상품 목록 조회
     async fetchProducts() {
       try {
-        const response = await axios.get('http://localhost:3000/liqueur');
+        const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/liqueur');
         this.products = response.data;
 
         const randomIndexes = this.getRandomIndexes(this.products.length, 4);

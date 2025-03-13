@@ -225,7 +225,7 @@ export default{
     methods:{
       async getmain() {
         try {
-          const response = await axios.get("http://localhost:3000/");
+          const response = await axios.get("import.meta.env.VUE_APP_API_BASE_URL/");
           this.mainData = response.data;
 
           // 데이터가 렌더링된 후 Swiper 초기화
