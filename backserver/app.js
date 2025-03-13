@@ -61,10 +61,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use('/',express.static(path.join(__dirname,'uploads')));
 const corsOptions = {
-    origin: process.env.FRONT_URL,
+    origin: process.env.FRONT_URL || "http://54.180.150.135",  // 기본값 추가
     credentials: true,
     optionsSuccessStatus: 200
-};//cors 설정
+};
 app.use(cors(corsOptions));
 passportSetting.passportSetting();
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -82,18 +82,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//라우터 
-app.use('/',indexRouter); //mainPage Router
-app.use('/admin',adminRouter); //adminPage Router
-app.use('/products',productRouter);// 1월1일 productRouter 추가
-app.use('/auth',loginRouter); // << 1월4일 /login -> /auth 로 변경 (동진)
-app.use('/liqueur',productListRouter);
-app.use('/etc',productListRouter);
-app.use('/orders',orderRouter);// 1월2일 orderRouter 추가 (누리)
-app.use('/profile',profileRouter);
-app.use('/post',postRouter);
-app.use('/modify',modifyRouter); // 1월7일 추가 동진
-app.use('/hdj_verify',hdj_verifyRouter);
+// 라우터 설정 (API 엔드포인트 수정)
+app.use('/api', indexRouter);  // MainPage Router
+app.use('/api/admin', adminRouter);  // AdminPage Router
+app.use('/api/products', productRouter);  // Product API (1월1일 추가)
+app.use('/api/auth', loginRouter);  // 로그인 API (1월4일 /login -> /auth 변경)
+app.use('/api/liqueur', productListRouter);  // 상품 리스트
+app.use('/api/etc', productListRouter);  // 기타 상품
+app.use('/api/orders', orderRouter);  // 주문 API (1월2일 추가)
+app.use('/api/profile', profileRouter);  // 유저 프로필
+app.use('/api/post', postRouter);  // 게시판 API
+app.use('/api/modify', modifyRouter);  // 유저 정보 수정 API (1월7일 추가)
+app.use('/api/hdj_verify', hdj_verifyRouter);  // 추가 인증 관련 API
+
 
 
 
