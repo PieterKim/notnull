@@ -6,7 +6,7 @@
 
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 
 export default{ 
     name:'',
@@ -33,7 +33,7 @@ export default{
                 {
                     pg : "html5_inicis", // 사용할 PG사
                     merchant_uid: `order_${new Date().getTime()}`, // 주문번호
-                    m_redirect_url : `import.meta.env.VUE_APP_API_BASE_URL/`, // 리디렉션 URL (모바일 고려)
+                    m_redirect_url : `http://localhost:3000/`, // 리디렉션 URL (모바일 고려)
                     popup : true, // pc에서는 팝업이가능, 모바일에선 안됨. 그래서 redir 해줘야함
                 },
                 // callback, 인증성공데이터 (인증고유id와 주문번호 등이 돌아온다) 포함해 다음 함수 실행
@@ -56,7 +56,7 @@ export default{
         async sendVerificationData(rsp) {
             try{
                 console.log('##############################sendVerificationData 실행시작');
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/verify', {
+                const response = await api.post('/verify', {
                     imp_uid: rsp.imp_uid, // 인증 고유 id
                     merchant_uid : rsp.merchant_uid, //주문번호
                 });

@@ -117,7 +117,8 @@
 
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
+
 export default{ 
     name:'',
     components:{},
@@ -180,7 +181,7 @@ export default{
         },
         async getCoupons(){
             try{
-                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/coupons',{withCredentials:true});
+                const response = await api.get('/admin/coupons',{withCredentials:true});
                 this.coupons = response.data;
             }
             catch(error){
@@ -202,7 +203,7 @@ export default{
         },
         async submitModifyCoupon(){
             try{
-                const response = await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/admin/modifyCoupon',this.editingCoupon,{withCredentials:true});
+                const response = await api.patch('/admin/modifyCoupon',this.editingCoupon,{withCredentials:true});
                 this.getCoupons();
             }
             catch(error){
@@ -221,7 +222,7 @@ export default{
         },
         async deleteCoupon(coupon){
             try{
-                const response = await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/admin/deleteCoupon/${coupon.id}`,{withCredentials:true});
+                const response = await api.delete(`/admin/deleteCoupon/${coupon.id}`,{withCredentials:true});
                 this.coupons = this.coupons.filter(cou => cou.id !== coupon.id);
             }
             catch(error){
@@ -240,7 +241,7 @@ export default{
         },
         async submitAddCoupon(){
             try{
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/addCoupon',this.newCoupon,{withCredentials:true});
+                const response = await api.post('/admin/addCoupon',this.newCoupon,{withCredentials:true});
                 this.coupons.push(response.data);
                 this.newCoupon = {};
                 this.getCoupons();

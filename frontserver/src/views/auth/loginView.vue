@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 export default{ 
     name:'',
     components:{},
@@ -58,7 +58,7 @@ export default{
     methods:{
         async checkLogin() {
             try {
-                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/auth/check',{withCredentials:true});
+                const response = await api.get('/auth/check',{withCredentials:true});
                 this.isLoggedIn = response.data.isLoggedIn;
             } catch (error) {
               if(error.response.status === 403){
@@ -71,7 +71,7 @@ export default{
         },
         async localLogin(){
             try{
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/auth',this.loginFrom,{withCredentials:true});
+                const response = await api.post('/auth',this.loginFrom,{withCredentials:true});
                 if(response.status === 200){
                     this.loginFrom.email = '';
                     this.loginFrom.password = '';
@@ -89,15 +89,15 @@ export default{
             }
         },
         kakaoLogin(){
-            window.location.href = 'import.meta.env.VUE_APP_API_BASE_URL/auth/kakao'; //소셜 로그인은 토큰 받으러 해당 페이지로 이동해야 하기 때문에 axios요청을 보내면 안됌.
+            window.location.href = 'http://localhost:3000/auth/kakao'; //소셜 로그인은 토큰 받으러 해당 페이지로 이동해야 하기 때문에 axios요청을 보내면 안됌.
         },
         naverLogin(){
-            window.location.href = 'import.meta.env.VUE_APP_API_BASE_URL/auth/naver';
+            window.location.href = 'http://localhost:3000/auth/naver';
         },
         async logout() {
             try {
                
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/auth/logout',{},{withCredentials:true}); //빈 오브젝트 파라미터를 꼭 넣어줘야함. post요청을 파라미터 3개를 받아야 해서 2개만 넣으면 세션 역 직렬화가 이상하게 되는 등의 문제가 생김.
+                const response = await api.post('/auth/logout',{},{withCredentials:true}); //빈 오브젝트 파라미터를 꼭 넣어줘야함. post요청을 파라미터 3개를 받아야 해서 2개만 넣으면 세션 역 직렬화가 이상하게 되는 등의 문제가 생김.
                 console.log("response",response);
                 if (response.status === 200) {
                     this.isLoggedIn = false;

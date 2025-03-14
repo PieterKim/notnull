@@ -32,7 +32,7 @@ export default{
 
         async getProductsDetail() {
             try {
-                const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/products/${product_id}`);
+                const response = await apit.get(`/products/${product_id}`);
                 this.selectedProduct = response.data ; 
             }catch(err) {
                 console.error(err);

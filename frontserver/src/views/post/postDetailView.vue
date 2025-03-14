@@ -155,7 +155,7 @@
 
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 import { marked } from 'marked';
 
 export default{ 
@@ -221,7 +221,7 @@ export default{
     unmounted(){},
     methods:{
         async getPostDetail(){
-            const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/post/post_detail/${this.postId}`);
+            const response = await apit.get(`/post/post_detail/${this.postId}`);
             this.postDetail = response.data;
         },
         initializeReplyReplyContents() {
@@ -229,14 +229,14 @@ export default{
             this.replyReplyContents = new Array(parentReplies.length).fill('');
         },
         async getReplyList(){
-            const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/post/reply_list/${this.postId}`);
+            const response = await apit.get(`/post/reply_list/${this.postId}`);
             this.replyList = response.data;
             this.initializeReplyReplyContents();
             console.log("replyList",this.replyList);
         },
         async getUser(){
             try{
-                const res = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/profile`,{withCredentials:true});
+                const res = await apit.get(`/profile`,{withCredentials:true});
                 this.user = res.data;
             }catch(err){
                 console.log("로그인 전");
@@ -245,7 +245,7 @@ export default{
         async deletePost() {
             if (confirm("정말로 삭제하시겠습니까?")) {
                 try {
-                    await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/post/delete/${this.postId}`,{withCredentials:true});
+                    await apit.delete(`/post/delete/${this.postId}`,{withCredentials:true});
                     alert("삭제되었습니다.");
                     this.$router.push('/');
                     // 삭제 후 다른 페이지로 이동하거나 필요한 후속 작업을 수행합니다.
@@ -280,7 +280,7 @@ export default{
                 this.sendReply.reply_content = this.replyReplyContents[index];
             }
             try{
-                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/post/reply_add/${this.postId}`,this.sendReply,{withCredentials:true});
+                const response = await api.post(`/post/reply_add/${this.postId}`,this.sendReply,{withCredentials:true});
                 this.sendReply = {
                     reply_content:'',
                     reply_reply_id:null,
@@ -308,7 +308,7 @@ export default{
         },
         async deleteReply(reply_id){
             try{
-                await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/post/reply_delete/${reply_id}`,{withCredentials:true});
+                await apit.delete(`/post/reply_delete/${reply_id}`,{withCredentials:true});
                 this.getReplyList();
             }catch(error){
                 console.log("댓글 삭제 실패",error);
@@ -320,7 +320,7 @@ export default{
         },
         async modifyReplySubmit(reply_id){
             try{
-                await axios.patch(`import.meta.env.VUE_APP_API_BASE_URL/post/reply_modify/${reply_id}`,{reply_content:this.modifyReplyContent},{withCredentials:true});
+                await apit.patch(`/post/reply_modify/${reply_id}`,{reply_content:this.modifyReplyContent},{withCredentials:true});
                 this.getReplyList();
             }catch(error){
                 console.log("댓글 수정 실패",error);
@@ -328,7 +328,7 @@ export default{
         },
         async toggleLike() {
             try {
-                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/post/post_like/${this.postId}`, {}, {withCredentials: true});
+                const response = await api.post(`/post/post_like/${this.postId}`, {}, {withCredentials: true});
                 console.log("response",response);
                 if(!response.data.isLoggedIn){
                     alert("로그인 후 이용해주세요.");
@@ -345,7 +345,7 @@ export default{
         },
         async addReplyLike(reply_id) {
             try {
-                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/post/reply_like/${reply_id}`, {}, {withCredentials: true});
+                const response = await api.post(`/post/reply_like/${reply_id}`, {}, {withCredentials: true});
                 console.log("response",response);
                 if(!response.data.isLoggedIn){
                     alert("로그인 후 이용해주세요.");

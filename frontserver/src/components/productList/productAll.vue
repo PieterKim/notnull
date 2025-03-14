@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 
 export default {
   data() {
@@ -120,7 +120,7 @@ export default {
     // 상품 목록 조회
     async fetchProducts() {
       try {
-        const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/liqueur/liqueur'); // 상품 데이터 가져오기
+        const response = await api.get('/liqueur/liqueur'); // 상품 데이터 가져오기
         this.products = response.data;
         const randomIndexes = this.getRandomIndexes(this.products.length, 10);
         this.products = this.products.map((product, index) => ({
@@ -188,7 +188,7 @@ export default {
 
      async getUserProfile(){
         try{
-            const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/profile/`, {withCredentials:true}); 
+            const response = await apit.get(`/profile/`, {withCredentials:true}); 
             //알아서 req.user.email 조회해서 유저 data 쏴주는 controller_profile
             //쿠키세션 쓸때는 무조건 {withCredentials:true} 써줘야됨
             this.user = response.data
@@ -214,7 +214,7 @@ export default {
                     product_Id : product.id,
                 };
                 
-                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/orders/wish`, userWish);
+                const response = await api.post(`/orders/wish`, userWish);
                 if(response.status == 201) {
                     alert("찜 리스트에 추가되었습니다.");
                 }
@@ -245,7 +245,7 @@ export default {
                 //console.log(`################userorder${JSON.stringify(cartingInfo)}`);
 
                 // data를 req.body로 백에 보내고, res받아 완료 메세지 띄우기
-                const response = await axios.post(`import.meta.env.VUE_APP_API_BASE_URL/orders/cart`, cartingInfo);
+                const response = await api.post(`/orders/cart`, cartingInfo);
 
                 // "장바구니 갈래? y/n"
                 if(response) {

@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 export default{ 
     name:'',
     components:{},
@@ -178,7 +178,7 @@ export default{
             try{
                 const formaPhone = this.createAccountData.phone_number.replace(/-/g, '');
                 this.createAccountData.phone_number = formaPhone;
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/auth/signup',this.createAccountData,{withCredentials:true});
+                const response = await api.post('/auth/signup',this.createAccountData,{withCredentials:true});
                 // 성공 시 알림 표시 후 루트로 이동
                 alert('회원가입이 성공적으로 완료되었습니다.');
                 this.$router.push('/login');
@@ -238,7 +238,7 @@ export default{
                 {
                 pg: 'inicis_unified', // KG 이니시스 (실제 PG사에 맞게 설정)
                 merchant_uid: `verify_${new Date().getTime()}`, // 주문번호
-                m_redirect_url: 'import.meta.env.VUE_APP_API_BASE_URL/hdj_verify/verify', // 리디렉션 URL (모바일용)
+                m_redirect_url: 'http://localhost:3000/hdj_verify/verify', // 리디렉션 URL (모바일용)
                 popup: true, // PC에서는 항상 true
                 },
                 (rsp) => {
@@ -259,7 +259,7 @@ export default{
         },
         async sendVerificationData(rsp) {
             try {
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/hdj_verify/verify', {
+                const response = await api.post('/hdj_verify/verify', {
                     imp_uid: rsp.imp_uid, // 인증 고유 ID
                     merchant_uid: rsp.merchant_uid, // 주문 번호
                 });

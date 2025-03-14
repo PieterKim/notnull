@@ -123,7 +123,7 @@
 
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 export default{ 
     name:'',
     components:{},
@@ -187,7 +187,7 @@ export default{
         },
         async getSupplyFactories(){
             try{
-                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/products/supplyFactories',{withCredentials:true});
+                const response = await api.get('/admin/products/supplyFactories',{withCredentials:true});
                 this.factories = response.data;
             }
             catch(error){
@@ -209,7 +209,7 @@ export default{
         },
         async submitModifyFactory(){
             try{
-                const response = await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/admin/modifySupplyFactory',this.editingFactory,{withCredentials:true});
+                const response = await apit.patch('/admin/modifySupplyFactory',this.editingFactory,{withCredentials:true});
                 this.getSupplyFactories();
             }
             catch(error){
@@ -228,7 +228,7 @@ export default{
         },
         async deleteFactory(factory){
             try{
-                const response = await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/admin/deleteSupplyFactory/${factory.id}`,{withCredentials:true});
+                const response = await apit.delete(`/admin/deleteSupplyFactory/${factory.id}`,{withCredentials:true});
                 if (response.status === 200) {
                     this.factories = this.factories.filter(fac => fac.id !== factory.id);
                 }
@@ -249,7 +249,7 @@ export default{
         },
         async submitAddFactory(){
             try{
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/admin/addSupplyFactory',this.newFactory,{withCredentials:true});
+                const response = await api.post('/admin/addSupplyFactory',this.newFactory,{withCredentials:true});
                 this.factories.push(response.data);
                 this.newFactory = {};
                 this.getSupplyFactories();

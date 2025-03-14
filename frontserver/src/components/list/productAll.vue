@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 
 export default {
   data() {
@@ -69,7 +69,7 @@ export default {
     // 상품 목록 조회
     async fetchProducts() {
       try {
-        const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/liqueur');
+        const response = await api.get('/liqueur');
         this.products = response.data;
 
         const randomIndexes = this.getRandomIndexes(this.products.length, 4);

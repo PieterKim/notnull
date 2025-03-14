@@ -95,7 +95,7 @@
 
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 export default{ 
     name:'',
     components:{},
@@ -165,7 +165,7 @@ export default{
         },
         async getProducts(){
             try{
-                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/products',{withCredentials:true});
+                const response = await api.get('/admin/products',{withCredentials:true});
                 this.products = response.data;
                 this.originalProducts = response.data;
             }
@@ -188,7 +188,7 @@ export default{
         },
         async deleteProduct(product){
             try{
-                const response = await axios.delete(`import.meta.env.VUE_APP_API_BASE_URL/admin/products/${product.id}`,{withCredentials:true});
+                const response = await apit.delete(`/admin/products/${product.id}`,{withCredentials:true});
                 if (response.status === 200) {
                     this.products = this.products.filter(p => p.id !== product.id);
                 }
@@ -253,7 +253,7 @@ export default{
         },
         async getProductLocations(){
             try{
-                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/products/locations',{withCredentials:true});
+                const response = await api.get('/admin/products/locations',{withCredentials:true});
                 this.locations = response.data;
             }
             catch(error){
@@ -272,7 +272,7 @@ export default{
         },
         async getSupplyFactories(){
             try{
-                const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/admin/products/supplyFactories',{withCredentials:true});
+                const response = await api.get('/admin/products/supplyFactories',{withCredentials:true});
                 this.supplyFactories = response.data;
             }
             catch(error){

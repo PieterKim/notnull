@@ -78,7 +78,7 @@
 </div>
 </template>
 <script>
-import axios from 'axios'
+import api from "@/api.js"
 
 export default{ 
     name:'ModifyUserView',
@@ -157,7 +157,7 @@ export default{
     methods:{
         async getUser(){
             try{
-                const res = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/profile`,{withCredentials:true});
+                const res = await apit.get(`/profile`,{withCredentials:true});
                 this.user = res.data;
                 if(this.user.delete_time){
                     this.checkDropOut = true;
@@ -191,7 +191,7 @@ export default{
                 }
                 const formaPhone = this.modifyUser.phone_number.replace(/-/g, '');
                 this.modifyUser.phone_number = formaPhone;
-                const response = await axios.patch(`import.meta.env.VUE_APP_API_BASE_URL/profile/modifyUser`,this.modifyUser,{withCredentials:true});
+                const response = await apit.patch(`/profile/modifyUser`,this.modifyUser,{withCredentials:true});
                 if(response.status === 200){
                     alert('사용자 정보가 수정되었습니다.');
                     this.$router.replace('/mypage');
@@ -204,7 +204,7 @@ export default{
          },
          async submitModifyPassword(){
             try{
-                const response = await axios.patch(`import.meta.env.VUE_APP_API_BASE_URL/profile/modifyPassword`,{password:this.newPassword},{withCredentials:true});
+                const response = await apit.patch(`/profile/modifyPassword`,{password:this.newPassword},{withCredentials:true});
                 if(response.status === 200){
                     alert('비밀번호가 변경되었습니다.');
                     this.$router.replace('/mypage');
@@ -217,10 +217,10 @@ export default{
             if (confirm('정말로 탈퇴하시겠습니까? 14일 뒤에 회원 정보가 삭제됩니다. (탈퇴 취소는 14일 내에 현재 페이지에서 진행이 가능합니다.)')) {
                 try {
                     
-                    const response = await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/profile/dropOut',{}, { withCredentials: true });
+                    const response = await apit.patch('/profile/dropOut',{}, { withCredentials: true });
                     if (response.status === 200) {
                         alert('회원 탈퇴가 완료되었습니다.');
-                        await axios.post('import.meta.env.VUE_APP_API_BASE_URL/auth/logout',{}, { withCredentials: true });
+                        await api.post('/auth/logout',{}, { withCredentials: true });
                         this.$router.push('/');
                     }
                 } catch (err) {
@@ -231,7 +231,7 @@ export default{
         },
         async cancleDropOut(){
             try{
-                const response = await axios.patch('import.meta.env.VUE_APP_API_BASE_URL/profile/cancleDropOut',{}, { withCredentials: true });
+                const response = await apit.patch('/profile/cancleDropOut',{}, { withCredentials: true });
                 if(response.status === 200){
                     alert('회원 탈퇴가 취소되었습니다.');
                     this.checkDropOut = false;
@@ -287,7 +287,7 @@ export default{
                 {
                 pg: 'inicis_unified', // KG 이니시스 (실제 PG사에 맞게 설정)
                 merchant_uid: `verify_${new Date().getTime()}`, // 주문번호
-                m_redirect_url: 'import.meta.env.VUE_APP_API_BASE_URL/hdj_verify/verify', // 리디렉션 URL (모바일용)
+                m_redirect_url: 'http://localhost:3000/hdj_verify/verify', // 리디렉션 URL (모바일용)
                 popup: true, // PC에서는 항상 true
                 },
                 (rsp) => {
@@ -308,7 +308,7 @@ export default{
         },
         async sendVerificationData(rsp) {
             try {
-                const response = await axios.post('import.meta.env.VUE_APP_API_BASE_URL/hdj_verify/verify', {
+                const response = await api.post('/hdj_verify/verify', {
                     imp_uid: rsp.imp_uid, // 인증 고유 ID
                     merchant_uid: rsp.merchant_uid, // 주문 번호
                 });

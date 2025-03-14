@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from "@/api.js"
 export default{ 
     name:'',
     components:{},
@@ -41,7 +41,7 @@ export default{
     methods:{
       async getReviewList(){
         try{
-          const response = await axios.get(`import.meta.env.VUE_APP_API_BASE_URL/post/product_review/${this.productId}`);
+          const response = await apit.get(`/post/product_review/${this.productId}`);
           console.log('response',response);
           this.reviews = response.data;
         }catch(error){
@@ -50,7 +50,7 @@ export default{
       },
       async checkLogin(){
         try {
-          const response = await axios.get('import.meta.env.VUE_APP_API_BASE_URL/auth/check',{withCredentials:true});
+          const response = await api.get('/auth/check',{withCredentials:true});
           this.isLogin = response.data.isLoggedIn;
         } catch(error) {
           return false;
