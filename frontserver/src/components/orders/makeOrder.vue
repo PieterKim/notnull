@@ -72,7 +72,7 @@ export default{
                     this.productInfo = JSON.parse(this.$route.query.productInfoQuery);
                 }else if(query === 'orderingInfoQuary') {
                     const InfoFromProductView = this.$route.query.orderingInfoQuary;
-                    const response = await apit.get(`/orders/order/${InfoFromProductView}`);
+                    const response = await api.get(`/orders/order/${InfoFromProductView}`);
                     this.productInfo = [response.data];
                 }
             }catch(err){

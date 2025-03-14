@@ -209,7 +209,7 @@ export default{
         },
         async submitModifyFactory(){
             try{
-                const response = await apit.patch('/admin/modifySupplyFactory',this.editingFactory,{withCredentials:true});
+                const response = await api.patch('/admin/modifySupplyFactory',this.editingFactory,{withCredentials:true});
                 this.getSupplyFactories();
             }
             catch(error){
@@ -228,7 +228,7 @@ export default{
         },
         async deleteFactory(factory){
             try{
-                const response = await apit.delete(`/admin/deleteSupplyFactory/${factory.id}`,{withCredentials:true});
+                const response = await api.delete(`/admin/deleteSupplyFactory/${factory.id}`,{withCredentials:true});
                 if (response.status === 200) {
                     this.factories = this.factories.filter(fac => fac.id !== factory.id);
                 }

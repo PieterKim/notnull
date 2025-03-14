@@ -188,7 +188,7 @@ export default{
         },
         async deleteProduct(product){
             try{
-                const response = await apit.delete(`/admin/products/${product.id}`,{withCredentials:true});
+                const response = await api.delete(`/admin/products/${product.id}`,{withCredentials:true});
                 if (response.status === 200) {
                     this.products = this.products.filter(p => p.id !== product.id);
                 }

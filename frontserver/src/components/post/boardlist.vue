@@ -138,7 +138,7 @@ export default {
     async boardList(){
       const postKind= this.$route.params.post_kind;
       try {
-        const response = await apit.get(`/post/post_list/${postKind}`);
+        const response = await api.get(`/post/post_list/${postKind}`);
         this.posts = response.data;
         this.originalPosts = response.data;
       } catch (error){

@@ -71,7 +71,7 @@ export default{
         async getOrderList() {
             try{
                 this.userid = this.$route.params.userId;
-                const response = await apit.get(`/orders/order/${this.userid}`);
+                const response = await api.get(`/orders/order/${this.userid}`);
                 this.orderList = response.data.sort((a, b) => b.id - a.id); // 주문번호순으로 정렬렬
             }catch(err){
                 console.error(err);
@@ -81,7 +81,7 @@ export default{
         // Order UPDATE
         async cancelOrder(cancelingOrder){
             try{
-                const response = await apit.patch(`/orders/cancelledOrder/${this.userid}`, {cancelingOrderId : cancelingOrder.id});
+                const response = await api.patch(`/orders/cancelledOrder/${this.userid}`, {cancelingOrderId : cancelingOrder.id});
                 if(response.status === 200) {
                     alert("주문이 취소되었습니다.")
                     this.orderList = this.orderList.filter(order =>  order.id != cancelingOrder.id);

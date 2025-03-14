@@ -41,7 +41,7 @@ export default{
     methods:{
       async getReviewList(){
         try{
-          const response = await apit.get(`/post/product_review/${this.productId}`);
+          const response = await api.get(`/post/product_review/${this.productId}`);
           console.log('response',response);
           this.reviews = response.data;
         }catch(error){

@@ -243,7 +243,7 @@ export default{
         async submitModifyUser(){
             try{
                 const userIndex = this.users.findIndex(user => user.id === this.editingUser.id);
-                const response = await apit.patch(`/admin/users`,this.editingUser,{withCredentials:true});
+                const response = await api.patch(`/admin/users`,this.editingUser,{withCredentials:true});
                 if (response.status === 200) {
                     this.users[userIndex] = { ...this.editingUser };
                 }
@@ -265,7 +265,7 @@ export default{
         },
         async deleteUser(user){
             try{
-                const response = await apit.delete(`/admin/users/${user.id}`,{withCredentials:true});
+                const response = await api.delete(`/admin/users/${user.id}`,{withCredentials:true});
                 if (response.status === 200) {
                     this.users = this.users.filter(u => u.id !== user.id);
                 }

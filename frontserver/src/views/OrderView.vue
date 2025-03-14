@@ -115,7 +115,7 @@ export default{
       // GET user profile / 250108 누리) router_profile에서 user data 받아오기로 변경
       async getUserProfile(){
         try{
-            const response = await apit.get(`/profile/`, {withCredentials:true}); 
+            const response = await api.get(`/profile/`, {withCredentials:true}); 
             //알아서 req.user.email 조회해서 유저 data 쏴주는 controller_profile
             //쿠키세션 쓸때는 무조건 {withCredentials:true} 써줘야됨
             this.user = response.data
@@ -129,7 +129,7 @@ export default{
       // 
       async getRating(){
           try{
-              const res = await apit.get(`/profile/userRating`,{withCredentials:true});
+              const res = await api.get(`/profile/userRating`,{withCredentials:true});
               console.log(res.data);
               this.rating = res.data.rating;
           }catch(err){

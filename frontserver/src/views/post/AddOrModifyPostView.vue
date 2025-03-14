@@ -126,7 +126,7 @@ export default {
             });
             return;
           }
-          const response = await apit.patch(`/post/modifyPost/${this.post.id}`,this.post,{withCredentials:true});
+          const response = await api.patch(`/post/modifyPost/${this.post.id}`,this.post,{withCredentials:true});
           console.log("게시글 수정 응답",response);
           this.post = {};
           this.isModify = false;

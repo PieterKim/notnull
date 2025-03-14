@@ -256,7 +256,7 @@ export default{
         // GET user profile
         async getUserProfile(){
         try{
-            const response = await apit.get(`/profile/`, {withCredentials:true}); 
+            const response = await api.get(`/profile/`, {withCredentials:true}); 
             //알아서 req.user.email 조회해서 유저 data 쏴주는 controller_profile
             //쿠키세션 쓸때는 무조건 {withCredentials:true} 써줘야됨
             this.user = response.data
@@ -274,7 +274,7 @@ export default{
                 //도메인 요청, 돌아오는 response 잡기
                 this.product_id = this.$route.params.product_id;
                 //console.log(this.product_id)
-                const response = await apit.get(`/products/${this.product_id}`);
+                const response = await api.get(`/products/${this.product_id}`);
                 // product_id에 해당하는 제품 data object를 받아온다.
                 //console.log(response)
                 this.selectedProduct = response.data ; 
@@ -286,7 +286,7 @@ export default{
 
         async getRecommendProducts() {
             try {
-                const response = await apit.get(`/products/${this.product_id}/recommend/`);
+                const response = await api.get(`/products/${this.product_id}/recommend/`);
                 this.recommendProduct = response.data ; 
             }catch(err) {
                 console.error(err);
@@ -296,7 +296,7 @@ export default{
         async reRendRecommend(productId){
             try{
                 this.$router.push(`/products/${productId}`)
-                const response = await apit.get(`/products/${productId}`);
+                const response = await api.get(`/products/${productId}`);
                 this.selectedProduct = response.data;
             }catch(err){
                 console.error(err)
@@ -435,7 +435,7 @@ export default{
             try{
                 console.log('checkRecentlyProduct');
                 const productId = this.$route.params.product_id;
-                await apit.patch(`/products/recently/${productId}`,{},{withCredentials:true});
+                await api.patch(`/products/recently/${productId}`,{},{withCredentials:true});
                 console.log('checkRecentlyProduct 완료');
             }catch(err){
                 console.error(err);

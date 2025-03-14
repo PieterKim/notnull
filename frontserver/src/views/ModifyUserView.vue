@@ -157,7 +157,7 @@ export default{
     methods:{
         async getUser(){
             try{
-                const res = await apit.get(`/profile`,{withCredentials:true});
+                const res = await api.get(`/profile`,{withCredentials:true});
                 this.user = res.data;
                 if(this.user.delete_time){
                     this.checkDropOut = true;
@@ -191,7 +191,7 @@ export default{
                 }
                 const formaPhone = this.modifyUser.phone_number.replace(/-/g, '');
                 this.modifyUser.phone_number = formaPhone;
-                const response = await apit.patch(`/profile/modifyUser`,this.modifyUser,{withCredentials:true});
+                const response = await api.patch(`/profile/modifyUser`,this.modifyUser,{withCredentials:true});
                 if(response.status === 200){
                     alert('사용자 정보가 수정되었습니다.');
                     this.$router.replace('/mypage');
@@ -204,7 +204,7 @@ export default{
          },
          async submitModifyPassword(){
             try{
-                const response = await apit.patch(`/profile/modifyPassword`,{password:this.newPassword},{withCredentials:true});
+                const response = await api.patch(`/profile/modifyPassword`,{password:this.newPassword},{withCredentials:true});
                 if(response.status === 200){
                     alert('비밀번호가 변경되었습니다.');
                     this.$router.replace('/mypage');
@@ -217,7 +217,7 @@ export default{
             if (confirm('정말로 탈퇴하시겠습니까? 14일 뒤에 회원 정보가 삭제됩니다. (탈퇴 취소는 14일 내에 현재 페이지에서 진행이 가능합니다.)')) {
                 try {
                     
-                    const response = await apit.patch('/profile/dropOut',{}, { withCredentials: true });
+                    const response = await api.patch('/profile/dropOut',{}, { withCredentials: true });
                     if (response.status === 200) {
                         alert('회원 탈퇴가 완료되었습니다.');
                         await api.post('/auth/logout',{}, { withCredentials: true });
@@ -231,7 +231,7 @@ export default{
         },
         async cancleDropOut(){
             try{
-                const response = await apit.patch('/profile/cancleDropOut',{}, { withCredentials: true });
+                const response = await api.patch('/profile/cancleDropOut',{}, { withCredentials: true });
                 if(response.status === 200){
                     alert('회원 탈퇴가 취소되었습니다.');
                     this.checkDropOut = false;

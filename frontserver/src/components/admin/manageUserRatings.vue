@@ -188,7 +188,7 @@ export default{
         },
         async submitModifyRating(){
             try{
-                const response = await apit.patch('/admin/modifyUserRating',this.editingRating,{withCredentials:true});
+                const response = await api.patch('/admin/modifyUserRating',this.editingRating,{withCredentials:true});
                 this.getUserRatings();
             }
             catch(error){
@@ -207,7 +207,7 @@ export default{
         },
         async deleteRating(rating){
             try{
-                const response = await apit.delete(`/admin/deleteUserRating/${rating.id}`,{withCredentials:true});
+                const response = await api.delete(`/admin/deleteUserRating/${rating.id}`,{withCredentials:true});
                 this.ratings = this.ratings.filter(rat => rat.id !== rating.id);
             }
             catch(error){

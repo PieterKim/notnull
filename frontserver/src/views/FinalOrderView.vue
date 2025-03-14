@@ -289,7 +289,7 @@ export default{
                     //console.log(`############################${JSON.stringify(this.productInfo)}`)
                 }else if(query === 'orderingInfoQuary') {
                     const InfoFromProductView = this.$route.query.orderingInfoQuary;
-                    const response = await apit.get(`/orders/ordering/${InfoFromProductView}`);
+                    const response = await api.get(`/orders/ordering/${InfoFromProductView}`);
                     this.productInfo = [response.data];
                     console.log(`############################ProductView${JSON.stringify(this.productInfo)}`)
                     //{"id":23,"count":1,

@@ -52,7 +52,7 @@ export default{
                 this.userid = this.$route.params.userId;
                 console.log(`################프론트userId:${userId}`);
                 // 로그인된 유저가 가지고있는 찜 리스트만 불러온다. 
-                const response = await apit.get(`/orders/wish/${userId}`); 
+                const response = await api.get(`/orders/wish/${userId}`); 
                                                                         // get 요청보낼때는 data 말고 params로 보내자
                 this.userWishList = response.data;
             } catch(err){
@@ -62,7 +62,7 @@ export default{
 
         async deleteProduct(product) {
             try{
-                const response = await apit.delete(`/orders/wish/${product.id}`)
+                const response = await api.delete(`/orders/wish/${product.id}`)
                 if (response.status === 200) {
                     // 삭제에 성공하면 위시리스트 다시 받아오지 말고 그냥 기존의 위시리스트에서 삭제항목만 빼고 보여준다.
                     this.userWishList = this.userWishList.filter(w => w.id !== product.id);

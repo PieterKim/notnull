@@ -85,7 +85,7 @@ export default{
     methods:{
          async getUser(){
             try{
-                const res = await apit.get(`/profile`,{withCredentials:true});
+                const res = await api.get(`/profile`,{withCredentials:true});
                 this.user = res.data;
                 this.frequentItems = {
                   id1:res.data.recently_product_1,
@@ -104,7 +104,7 @@ export default{
 
          async getRating(){
             try{
-                const res = await apit.get(`/profile/userRating`,{withCredentials:true});
+                const res = await api.get(`/profile/userRating`,{withCredentials:true});
                 this.rating = res.data.rating;
             }catch(err){
                 console.error(err);
@@ -132,7 +132,7 @@ export default{
         async sendFrequentItems(frequentItems) {
             try {
                 const queryParams = new URLSearchParams(frequentItems).toString();
-                const res = await apit.get(`/products/recentlyProductInfo?${queryParams}`, { withCredentials: true });
+                const res = await api.get(`/products/recentlyProductInfo?${queryParams}`, { withCredentials: true });
                 this.frequentItems = res.data.products;
             } catch (err) {
                 console.error(err);

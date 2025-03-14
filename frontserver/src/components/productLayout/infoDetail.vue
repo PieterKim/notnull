@@ -32,7 +32,7 @@ export default{
 
         async getProductsDetail() {
             try {
-                const response = await apit.get(`/products/${product_id}`);
+                const response = await api.get(`/products/${product_id}`);
                 this.selectedProduct = response.data ; 
             }catch(err) {
                 console.error(err);

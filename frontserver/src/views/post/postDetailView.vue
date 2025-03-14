@@ -221,7 +221,7 @@ export default{
     unmounted(){},
     methods:{
         async getPostDetail(){
-            const response = await apit.get(`/post/post_detail/${this.postId}`);
+            const response = await api.get(`/post/post_detail/${this.postId}`);
             this.postDetail = response.data;
         },
         initializeReplyReplyContents() {
@@ -229,14 +229,14 @@ export default{
             this.replyReplyContents = new Array(parentReplies.length).fill('');
         },
         async getReplyList(){
-            const response = await apit.get(`/post/reply_list/${this.postId}`);
+            const response = await api.get(`/post/reply_list/${this.postId}`);
             this.replyList = response.data;
             this.initializeReplyReplyContents();
             console.log("replyList",this.replyList);
         },
         async getUser(){
             try{
-                const res = await apit.get(`/profile`,{withCredentials:true});
+                const res = await api.get(`/profile`,{withCredentials:true});
                 this.user = res.data;
             }catch(err){
                 console.log("로그인 전");
@@ -245,7 +245,7 @@ export default{
         async deletePost() {
             if (confirm("정말로 삭제하시겠습니까?")) {
                 try {
-                    await apit.delete(`/post/delete/${this.postId}`,{withCredentials:true});
+                    await api.delete(`/post/delete/${this.postId}`,{withCredentials:true});
                     alert("삭제되었습니다.");
                     this.$router.push('/');
                     // 삭제 후 다른 페이지로 이동하거나 필요한 후속 작업을 수행합니다.
@@ -308,7 +308,7 @@ export default{
         },
         async deleteReply(reply_id){
             try{
-                await apit.delete(`/post/reply_delete/${reply_id}`,{withCredentials:true});
+                await api.delete(`/post/reply_delete/${reply_id}`,{withCredentials:true});
                 this.getReplyList();
             }catch(error){
                 console.log("댓글 삭제 실패",error);
@@ -320,7 +320,7 @@ export default{
         },
         async modifyReplySubmit(reply_id){
             try{
-                await apit.patch(`/post/reply_modify/${reply_id}`,{reply_content:this.modifyReplyContent},{withCredentials:true});
+                await api.patch(`/post/reply_modify/${reply_id}`,{reply_content:this.modifyReplyContent},{withCredentials:true});
                 this.getReplyList();
             }catch(error){
                 console.log("댓글 수정 실패",error);

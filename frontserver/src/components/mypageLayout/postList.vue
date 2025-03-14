@@ -21,7 +21,7 @@ export default{
 
         async getOderList(){
             try{
-                const res = await apit.get(`/profile/posts`,{withCredentials:true})
+                const res = await api.get(`/profile/posts`,{withCredentials:true})
                 this.posts = res.data
             }catch(err){
                 console.log(err)

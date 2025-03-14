@@ -136,7 +136,7 @@ export default{
         // GET user profile
         async getUserProfile(){
         try{
-            const response = await apit.get(`/profile/`, {withCredentials:true}); 
+            const response = await api.get(`/profile/`, {withCredentials:true}); 
             //알아서 req.user.email 조회해서 유저 data 쏴주는 controller_profile
             //쿠키세션 쓸때는 무조건 {withCredentials:true} 써줘야됨
             this.user = response.data
@@ -151,7 +151,7 @@ export default{
         async getCartedProducts() {
             try {
                 this.userid = this.$route.params.userId
-                const response = await apit.get(`/orders/cart/${this.userid}`);
+                const response = await api.get(`/orders/cart/${this.userid}`);
                 this.cartedProducts = response.data;
 
                 this.cartedProducts = this.cartedProducts.map(cartedProduct => ({...cartedProduct, selected : true})); // selected 기본값 true
@@ -171,7 +171,7 @@ export default{
                 const deleteCart = confirm("해당 제품을 장바구니에서 삭제하시겠습니까?");
                 if(!deleteCart){return;}
 
-                const response = await apit.delete(`/orders/cart`, {data : {ids : [cartedProduct_id]}});
+                const response = await api.delete(`/orders/cart`, {data : {ids : [cartedProduct_id]}});
                 if (response.status === 200) {
                     alert("장바구니에서 삭제되었다");
                     this.cartedProducts = this.cartedProducts.filter(c => c.id !== cartedProduct_id);
@@ -191,7 +191,7 @@ export default{
                 const deleteCart = confirm("선택 제품을 장바구니에서 삭제하시겠습니까?");
                 if(!deleteCart){return;}       
 
-                const response =await apit.delete(`/orders/cart`, {data : {ids : [selectedIds]}})
+                const response =await api.delete(`/orders/cart`, {data : {ids : [selectedIds]}})
                 if (response.status === 200) {
                     alert("장바구니에서 삭제되었다");
                     this.cartedProducts = this.cartedProducts.filter(c => !selectedIds.includes(c.id));
